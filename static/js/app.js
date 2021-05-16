@@ -11,6 +11,7 @@ function dropdown(){
         var sample1 = id[0];
         buildMetadata(sample1);
         buildCharts(sample1);
+        // gauge_plot(sample1);
     })
 }
 
@@ -35,6 +36,9 @@ function buildMetadata(sample) {
         Object.entries(result).forEach(function([key,value]){
             var row = sampleData.append("p");
             row.text(`${key}:${value}`)
+            console.log('No 38', key, value)    
+            wfreq = result.wfreq   
+            console.log('40', wfreq)     
         })
         // gauge_plot(result.wfreq)
         });
@@ -44,13 +48,17 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
     // Use d3.json to get data
     d3.json("samples.json").then(function(data) {
+        // var wfreq = data.metadata.wfreq
         var metadata = data.samples;
         var filterdata = metadata.filter(sampleobject => sampleobject.id==sample);
         var result = filterdata[0];
         var OTU_ids = result.otu_ids;
         var OTU_labels = result.otu_labels;
         var samplevalue = result.sample_values;
-        console.log(data.samples)
+
+
+        console.log('No 59', filterdata[0])
+        console.log('No 60', wfreq)
 
 
         // Barchart / horizontal 
@@ -95,20 +103,22 @@ function buildCharts(sample) {
 
 
         // guage_plot
-        var guage_data = [{
+        // console.log(wfreq)
+        var guage_plot = [{
             domain: { x: [0, 1], y: [0, 1] },
-            value: 270,
+            value: wfreq,
             type: "indicator",
 		    mode: "gauge+number"
 
         }];
+        console.log('No 113', data.wfreq)
 
         var guagelayout = {
             title: "Belly Button Wash Freq"
         }
 
 
-        Plotly.newPlot('gauge', guage_data, guagelayout);
+        Plotly.newPlot('gauge', guage_plot, guagelayout);
 
     });
 
