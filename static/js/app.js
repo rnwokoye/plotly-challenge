@@ -96,12 +96,15 @@ function buildCharts(sample) {
             type: "indicator",
 		    mode: "gauge+number",
             gauge: {
-            axis: { range: [null, 9] },        
+            axis: { range: [null, 9] },
+            bar: {color: '7EA397'},
+            bgcolor: "white"        
         }
     }];
 
         var guagelayout = {
             title: "Belly Button Washing Frequency",
+            paper_bgcolor: 'white'
         }
 
         Plotly.newPlot('gauge', guage_plot, guagelayout);
